@@ -8,6 +8,7 @@ import "./styles/styles.css";
 
 function App() {
   const [autenticado, setAutenticado] = useState(false);
+  const [authCarregado, setAuthCarregado] = useState(false);
   const [credenciais, setCredenciais] = useState({ usuario: "", senha: "" });
   const [loading, setLoading] = useState(false)
   const [erro, setErro] = useState("");
@@ -21,8 +22,14 @@ function App() {
     if (token && barbeiroId) {
       setAutenticado(true);
     }
+
+
+    setAuthCarregado(true);
   }, []);
 
+  if (!authCarregado) {
+    return <div>Carregando...</div>;
+  }
 
   // 🔹 Login
   const handleLogin = async (e) => {
@@ -111,24 +118,24 @@ function App() {
           }
         />
 
-        {/* Admin */}
+        {/* Histórico */}
         <Route
-          path="/admin"
+          path="/admin/historico"
           element={
             autenticado ? (
-              <AdminPage onLogout={handleLogout} />
+              <AdminPage tipo="historico" onLogout={handleLogout}/>
             ) : (
               <Navigate to="/login" replace />
             )
           }
         />
 
-        {/* Histórico */}
+        {/* Admin */}
         <Route
-          path="/admin/historico"
+          path="/admin"
           element={
             autenticado ? (
-              <AdminPage tipo="historico" onLogout={handleLogout} />
+              <AdminPage onLogout={handleLogout} />
             ) : (
               <Navigate to="/login" replace />
             )

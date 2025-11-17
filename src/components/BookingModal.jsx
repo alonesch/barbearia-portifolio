@@ -69,6 +69,7 @@ function BookingModal({ isOpen, onClose }) {
           telefone: formData.telefone,
           barbeiroId: parseInt(formData.barbeiroId),
           dataHora: formData.dataHora,
+          observacao: observacao,
           agendamentoServicos: [
             {
               servicoId: parseInt(formData.servicoId),

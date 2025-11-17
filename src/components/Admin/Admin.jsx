@@ -5,21 +5,15 @@ import "./Admin.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const Admin = ({ onVoltar, onLogout }) => {
+const Admin = ({ onVoltar, onLogout, tipo = "ativos" }) => {
   const [agendamentos, setAgendamentos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [toast, setToast] = useState(null);
-  const location = useLocation();
   const navigate = useNavigate();
 
-  const [tipo, setTipo] = useState(() =>
-    location.pathname.includes("historico") ? "historico" : "ativos"
-  );
-
-  useEffect(() => {
-    setTipo(location.pathname.includes("historico") ? "historico" : "ativos");
-  }, [location.pathname]);
+  // 🔍 Log pra garantir que o tipo veio certo (ajuda no debug)
+  console.log("🟦 Tipo atual:", tipo);
 
   // 🔹 Detecta mobile
   useEffect(() => {
@@ -49,8 +43,8 @@ const Admin = ({ onVoltar, onLogout }) => {
 
         const parsed = data.map((a) => ({
           id: a.id,
-          cliente: a.nome,                   // ✔ correto
-          barbeiro: a.barbeiroId,            // ✔ correto
+          cliente: a.nome,
+          barbeiro: a.barbeiroId,
           dataHora: a.dataHora,
           status:
             a.status === 1 ? "Pendente" :
@@ -79,16 +73,17 @@ const Admin = ({ onVoltar, onLogout }) => {
     fetchAgendamentos();
   }, [navigate]);
 
-  // 🔹 Toast
+  // 🔹 Toasts
   const showToast = (mensagem, tipo = "info") => {
     setToast({ mensagem, tipo });
     setTimeout(() => setToast(null), 3000);
   };
 
-  // 🔹 Atualiza status
+  // 🔹 Atualizar status
   const atualizarStatus = async (id, novoStatus) => {
     try {
       const token = localStorage.getItem("token");
+
       await axios.patch(
         `${API_URL}/api/agendamento/status/${id}`,
         { status: novoStatus },
@@ -120,22 +115,44 @@ const Admin = ({ onVoltar, onLogout }) => {
     }
   };
 
-  // 🔹 Filtros e paginação
-  const ativos = agendamentos.filter((a) =>
+  // -------------------------------------------------------------------------
+  // 🔹 Listas de Ativos e Histórico (filtragens)
+  // -------------------------------------------------------------------------
+
+  const ordenados = [...agendamentos].sort(
+  (a,b) => new Date(b.dataHora) - new Date(a.dataHora)
+  );
+
+  const ativos = ordenados.filter((a) =>
     ["Pendente", "Confirmado"].includes(a.status)
   );
 
-  const historico = agendamentos.filter((a) =>
+  const historico = ordenados.filter((a) =>
     ["Finalizado", "Cancelado pelo Barbeiro", "Cancelado pelo Cliente"].includes(a.status)
   );
 
+  // 🔹 Escolhe qual lista mostrar com base no tipo passado pela rota
   const lista = tipo === "historico" ? historico : ativos;
+
+  // -------------------------------------------------------------------------
+  // 🔹 Paginação
+  // -------------------------------------------------------------------------
+
   const itensPorPagina = 5;
   const [pagina, setPagina] = useState(1);
+
   const totalPaginas = Math.ceil(lista.length / itensPorPagina);
   const paginaItens = lista.slice((pagina - 1) * itensPorPagina, pagina * itensPorPagina);
 
-  // 🔹 Navegação
+  // Reseta para página 1 ao trocar de aba
+  useEffect(() => {
+    setPagina(1);
+  }, [tipo]);
+
+  // -------------------------------------------------------------------------
+  // 🔹 Renderização
+  // -------------------------------------------------------------------------
+
   const handleVoltar = () => {
     navigate("/");
     onVoltar?.();
@@ -154,7 +171,6 @@ const Admin = ({ onVoltar, onLogout }) => {
     setTimeout(() => navigate("/login", { replace: true }), 800);
   };
 
-  // 🔹 Renderização
   return (
     <div className="admin-page">
       <div className="top-buttons">
@@ -237,6 +253,7 @@ const Admin = ({ onVoltar, onLogout }) => {
                   <p><strong>Data:</strong> {new Date(a.dataHora).toLocaleString("pt-BR")}</p>
                   <p><strong>Status:</strong> {a.status}</p>
                   <p><strong>Obs:</strong> {a.observacao || "-"}</p>
+
                   <div className="acoes-admin">
                     {a.status === "Pendente" && (
                       <>
@@ -270,7 +287,8 @@ const Admin = ({ onVoltar, onLogout }) => {
             <button onClick={() => setPagina(pagina + 1)} disabled={pagina === totalPaginas}>
               Próxima →
             </button>
-          </div> )}
+          </div>
+        )}
       </div>
 
       {toast && <div className={`toast ${toast.tipo}`}>{toast.mensagem}</div>}
