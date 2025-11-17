@@ -27,7 +27,7 @@
 
 /* ===== BOTÕES TOPO ===== */
 .top-buttons {
-  position: fixed;
+  position:relative;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
