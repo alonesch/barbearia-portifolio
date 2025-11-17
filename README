@@ -1,8 +1,78 @@
-Projeto do meu curso de HTML e CSS
-Usei como "cobaia" de estudos meu irmão Gabriel, qual está
-se tornando barbeiro e busca uma oportunidade no mercado.
+# Barbearia – Front-End
 
-O Objetivo além de treinanr e aprender mais sobre linguagem
-de marcação é auxiliar meu irmão a criar um portifólio dos
-seus cortes e mostrar aos seus futuros clientes o seu trabalho.
-  
+Este documento descreve o front-end oficial do projeto **Barbearia**, desenvolvido para apresentar a marca, seus serviços e permitir que clientes realizem agendamentos de forma simples e fluida. O foco da interface é oferecer uma experiência visual consistente e moderna, alinhada com a identidade da barbearia.
+
+---
+
+## Visão Geral
+
+O front-end foi construído para ser leve, direto e totalmente responsivo. Ele é responsável por toda a experiência visual do projeto, desde a página inicial até o painel administrativo.
+
+A interface engloba:
+
+- Página institucional com introdução da barbearia  
+- Galeria de cortes  
+- Área dedicada a agendamentos  
+- Seção de branding  
+- Player de música fixo que reforça a identidade do site  
+- Página administrativa para acompanhamento de agendamentos  
+
+---
+
+## Design e Identidade
+
+A estética do projeto segue uma identidade visual única com:
+
+- Paleta escura com detalhes em laranja e bege  
+- Fontes elegantes e modernas  
+- Componentes com bordas e detalhes estilizados  
+- Layout pensado para manter consistência visual em todas as seções  
+
+O design prioriza clareza, contraste e navegação intuitiva, garantindo que usuários consigam se orientar facilmente pelo site.
+
+---
+
+## Estrutura Geral
+
+O front é organizado em componentes independentes que representam as seções principais da aplicação. Isso facilita manutenção e evolução do projeto.
+
+Principais áreas:
+
+- Cabeçalho  
+- Sessão de apresentação (Intro)  
+- Galeria  
+- Sessão de agendamento  
+- Branding  
+- Rodapé  
+- Painel administrativo  
+
+Cada seção possui lógica visual própria e mantém o padrão estético do projeto.
+
+---
+
+## Experiência do Usuário
+
+A navegação foi construída para ser suave e clara.  
+Destaques da experiência:
+
+- Interface limpa e objetiva  
+- Layout totalmente responsivo  
+- Foco visual nas informações mais importantes  
+- Player fixo que acompanha o usuário em todas as seções  
+- Transições suaves entre áreas da página  
+
+---
+
+## Estado Atual do Projeto
+
+O front está concluído em sua estrutura principal e cumpre:
+
+- Apresentação completa da barbearia  
+- Interface funcional para agendamentos  
+- Página administrativa com acompanhamento de status  
+- Integração visual finalizada  
+- Deploy ativo e estável  
+
+Evoluções futuras são acompanhadas pelo Kanban do projeto.
+
+
