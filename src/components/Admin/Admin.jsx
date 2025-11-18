@@ -12,8 +12,6 @@ const Admin = ({ onVoltar, onLogout, tipo = "ativos" }) => {
   const [toast, setToast] = useState(null);
   const navigate = useNavigate();
 
-  // 🔍 Log pra garantir que o tipo veio certo (ajuda no debug)
-  console.log("🟦 Tipo atual:", tipo);
 
   // 🔹 Detecta mobile
   useEffect(() => {
