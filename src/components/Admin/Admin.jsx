@@ -46,7 +46,7 @@ const Admin = ({ onVoltar, onLogout, tipo = "ativos" }) => {
           dataHora: a.dataHora,
           status:
             a.status === 1 ? "Pendente" :
-            a.status === 2 ? "Confirmado" :
+            a.status === 2 ? "Confirmado!" :
             a.status === 5 ? "Cancelado pelo Cliente" :
             a.status === 6 ? "Cancelado pelo Barbeiro" :
             a.status === 7 ? "Finalizado" :
