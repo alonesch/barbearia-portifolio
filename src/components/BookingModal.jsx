@@ -68,8 +68,8 @@ function BookingModal({ isOpen, onClose }) {
           cpf: formData.cpf || null,
           telefone: formData.telefone,
           barbeiroId: parseInt(formData.barbeiroId),
-          dataHora: formData.dataHora,
-          observacao: observacao,
+          dataHora: formData.dataHora + ":00",
+          observacao: formData.observacao,
           agendamentoServicos: [
             {
               servicoId: parseInt(formData.servicoId),
@@ -78,11 +78,12 @@ function BookingModal({ isOpen, onClose }) {
           ],
         }),
       });
+      
 
       const result = await response.json();
 
-      if (response.ok && result.sucesso) {
-        alert("✅ " + result.mensagem);
+      if (response.ok) {
+        alert("✅ Agendamento criado com sucesso! ");
         onClose();
       } else {
         alert("❌ " + (result.mensagem || "Erro ao criar agendamento."));
