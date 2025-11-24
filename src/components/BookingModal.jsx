@@ -94,7 +94,7 @@ function BookingModal({ isOpen, onClose }) {
         onClose();
       }
       else {
-        alert("❌ " + (result.mensagem) || "Erro ao criar agendamento.")
+        alert("❌ " + (result.mensagem)  || raw || "Erro ao criar agendamento.")
       }
     } catch (err) {
       console.error("Erro de conexão:", err);
