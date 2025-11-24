@@ -78,24 +78,17 @@ function BookingModal({ isOpen, onClose }) {
           ],
         }),
       });
-      
 
-      const raw = await response.json();
-      let result = {};
 
-      try{
-        result = raw ? JSON.parse(raw) : {};
-      } catch(e) {
-        console.log("Resposta não era JSON", raw);
-      }
+      const result = await response.json();
 
-      if (response.ok){
+      if (response.ok) {
         alert("✅ " + (result.mensagem || "Agendamento criado com sucesso!"));
         onClose();
+      } else {
+        alert("❌ " + (result.mensagem || "Erro ao criar agendamento."));
       }
-      else {
-        alert("❌ " + (result.mensagem)  || raw || "Erro ao criar agendamento.")
-      }
+
     } catch (err) {
       console.error("Erro de conexão:", err);
       alert("❌ Falha inesperada.");
